@@ -57,3 +57,5 @@ python sc.py --provider local-b60-8083 --model qwen3.8-27b
 python -m pytest tests/ -v
 # 4 passed
 ```
+# sync test 1788888957
+# sync test 1788888968
