@@ -16,11 +16,13 @@ class ClaudeProvider(LLMProvider):
 
     def __init__(self, config: ProviderConfig, model: str | None = None):
         super().__init__(config, model)
+        self.client = None
+        self._import_error: Exception | None = None
         try:
             import anthropic
             self.client = anthropic.Anthropic()  # SDK reads ANTHROPIC_API_KEY env
-        except ImportError:
-            raise RuntimeError("Install the Anthropic SDK: pip install anthropic")
+        except ImportError as e:
+            self._import_error = e
 
     def validate(self) -> bool:
         return bool(self.config.api_key or os.environ.get("ANTHROPIC_API_KEY"))
@@ -108,6 +110,8 @@ class ClaudeProvider(LLMProvider):
         )
 
     def generate(self, input: LLMInput) -> LLMOutput:
+        if self.client is None:
+            raise RuntimeError("Install the Anthropic SDK: pip install anthropic") from self._import_error
         kwargs: dict[str, Any] = {
             "model": self.resolve_model(input.model),
             "max_tokens": input.max_tokens,

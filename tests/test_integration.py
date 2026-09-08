@@ -18,7 +18,8 @@ def test_ollama_provider_resolution():
 
 
 def test_claude_provider_resolution():
-    """Claude provider resolves correctly."""
+    """Claude provider resolves correctly (skips without anthropic SDK)."""
+    pytest.importorskip("anthropic")
     p = resolve_provider("claude")
     assert isinstance(p, ClaudeProvider)
 
