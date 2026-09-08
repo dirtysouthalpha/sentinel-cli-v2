@@ -1,5 +1,7 @@
 # Sentinel CLI V2
 
+[![CI](https://github.com/dirtysouthalpha/sentinel-cli-v2/actions/workflows/ci.yml/badge.svg)](https://github.com/dirtysouthalpha/sentinel-cli-v2/actions/workflows/ci.yml)
+
 Harness — like OMP, but better. Model-agnostic coding agent with hashline edits, cost tracking, and model routing.
 
 ## Architecture
